@@ -25,19 +25,19 @@ namespace RobotApp.UnitTests
             Assert.That(robotParser.RobotGrid.Width, Is.EqualTo(4));
             Assert.That(robotParser.RobotGrid.Height, Is.EqualTo(3));
 
-            Assert.That(robotParser.RobotObstacles.FirstOrDefault().X, Is.EqualTo(1));
-            Assert.That(robotParser.RobotObstacles.FirstOrDefault().Y, Is.EqualTo(2));
+            Assert.That(robotParser.RobotObstacles.First().X, Is.EqualTo(1));
+            Assert.That(robotParser.RobotObstacles.First().Y, Is.EqualTo(2));
 
-            Assert.That(robotParser.RobotJourneys.FirstOrDefault().StartingPosition.X, Is.EqualTo(1));
-            Assert.That(robotParser.RobotJourneys.FirstOrDefault().StartingPosition.Y, Is.EqualTo(1));
-            Assert.That(robotParser.RobotJourneys.FirstOrDefault().StartingPosition.Direction, Is.EqualTo(DirectionEnum.E));
+            Assert.That(robotParser.RobotJourneys.First().StartingPosition.X, Is.EqualTo(1));
+            Assert.That(robotParser.RobotJourneys.First().StartingPosition.Y, Is.EqualTo(1));
+            Assert.That(robotParser.RobotJourneys.First().StartingPosition.Direction, Is.EqualTo(DirectionEnum.E));
 
-            Assert.That(robotParser.RobotJourneys.FirstOrDefault().Commands.FirstOrDefault(), Is.EqualTo(CommandEnum.R));
-            Assert.That(robotParser.RobotJourneys.FirstOrDefault().Commands.LastOrDefault(), Is.EqualTo(CommandEnum.F));
+            Assert.That(robotParser.RobotJourneys.First().Commands.First(), Is.EqualTo(CommandEnum.R));
+            Assert.That(robotParser.RobotJourneys.First().Commands.Last(), Is.EqualTo(CommandEnum.F));
 
-            Assert.That(robotParser.RobotJourneys.FirstOrDefault().ExpectedPosition.X, Is.EqualTo(1));
-            Assert.That(robotParser.RobotJourneys.FirstOrDefault().ExpectedPosition.Y, Is.EqualTo(0));
-            Assert.That(robotParser.RobotJourneys.FirstOrDefault().ExpectedPosition.Direction, Is.EqualTo(DirectionEnum.W));
+            Assert.That(robotParser.RobotJourneys.First().ExpectedPosition.X, Is.EqualTo(1));
+            Assert.That(robotParser.RobotJourneys.First().ExpectedPosition.Y, Is.EqualTo(0));
+            Assert.That(robotParser.RobotJourneys.First().ExpectedPosition.Direction, Is.EqualTo(DirectionEnum.W));
         }
 
         [Test]
