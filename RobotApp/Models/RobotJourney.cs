@@ -51,16 +51,17 @@ namespace RobotApp.Models
 
         public IEnumerable<CommandEnum> Commands { get; set; }
 
-        public Position ExpectedPosition { get; set; } 
+        public Position ExpectedPosition { get; set; }
+
 
         public void BeginJourney(Grid grid, IEnumerable<Obstacle> obstacles)
         {
             Position currentPosition = StartingPosition;
             bool isOutOfBoundsOrCrashed = false;
+            CommandService commandService = new();
 
             foreach (var command in Commands)
             {
-                var commandService = new CommandService();
                 currentPosition = commandService.ExecuteCommand(currentPosition, command);
 
                 if (currentPosition.IsOutOfBounds(grid))

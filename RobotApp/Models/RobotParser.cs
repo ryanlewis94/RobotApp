@@ -14,6 +14,7 @@ namespace RobotApp.Models
 
             InitialiseJourneys(file);
 
+            CheckObstaclesBeforeJourneys(file);
             InitialiseObstacles(file);
         }
 
@@ -22,6 +23,7 @@ namespace RobotApp.Models
         public IEnumerable<RobotJourney> RobotJourneys { get; set; }
 
         public IEnumerable<Obstacle> RobotObstacles { get; set; }
+
 
         private void InitialiseJourneys(string[] file)
         {
@@ -35,6 +37,13 @@ namespace RobotApp.Models
 
         private void InitialiseObstacles(string[] file)
         {
+            RobotObstacles = file
+                .Where(line => line.Contains("OBSTACLE"))
+                .Select(obstacle => new Obstacle(obstacle, RobotGrid));
+        }
+
+        private void CheckObstaclesBeforeJourneys(string[] file)
+        {
             string startOfFirstJourney = file.FirstOrDefault(line =>
                 !(line.Contains("GRID") && line.Contains("x")) &&
                 !line.Contains("OBSTACLE") &&
@@ -47,10 +56,6 @@ namespace RobotApp.Models
             {
                 throw new FormatException("Please make sure all obstacles are declared before the start of any journeys");
             }
-
-            RobotObstacles = file
-                .Where(line => line.Contains("OBSTACLE"))
-                .Select(obstacle => new Obstacle(obstacle, RobotGrid));
         }
     }
 }

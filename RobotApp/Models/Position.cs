@@ -13,7 +13,6 @@ namespace RobotApp.Models
             }
 
             string[] coordinatesArray = coordinates.Split();
-
             if (coordinatesArray.Length != 3)
             {
                 throw new ArgumentException($"'{coordinates}' is not valid Position {nameof(coordinates)}. Please provide valid {nameof(coordinates)} for Position e.g. '1 2 E'", nameof(coordinates));

@@ -12,7 +12,6 @@ namespace RobotApp.Models
             }
 
             string[] coordinatesArray = coordinates.Split();
-
             if (coordinatesArray.Length != 3)
             {
                 throw new ArgumentException($"'{coordinates}' is not a valid obstacle definition. Please provide a valid obstacle definition e.g. 'OBSTACLE 1 2'", nameof(coordinates));

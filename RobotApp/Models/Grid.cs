@@ -13,7 +13,6 @@ namespace RobotApp.Models
             }
 
             string[] gridDimensions = gridDefinition.Split()[1].Split("x");
-
             if (gridDimensions.Length != 2)
             {
                 throw new ArgumentException($"'{gridDefinition}' is not a valid {nameof(gridDefinition)}. Please provide a valid {nameof(gridDefinition)} e.g. 'GRID 4x3'", nameof(gridDefinition));
