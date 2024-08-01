@@ -56,5 +56,27 @@ namespace RobotApp.UnitTests
             Exception ex = Assert.Throws<ArgumentOutOfRangeException>(() => new Grid("GRID 4x0"));
             Assert.That(ex.Message, Is.EqualTo("'0' is not a valid height. Height must be more than or equal to 1 (Parameter 'gridDefinition')"));
         }
+
+        [Test]
+        public void Grid_IsNotOutOfBounds()
+        {
+            Grid grid = new("GRID 4x3");
+            Position position = new("3 2 E");
+
+            bool isOutOfBounds = grid.IsOutOfBounds(position);
+
+            Assert.IsFalse(isOutOfBounds);
+        }
+
+        [Test]
+        public void Grid_IsOutOfBounds()
+        {
+            Grid grid = new("GRID 4x3");
+            Position position = new("4 2 E");
+
+            bool isOutOfBounds = grid.IsOutOfBounds(position);
+
+            Assert.IsTrue(isOutOfBounds);
+        }
     }
 }

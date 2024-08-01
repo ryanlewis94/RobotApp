@@ -2,8 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using RobotApp.Enums;
-using RobotApp.Extensions;
-using RobotApp.Services.CommandService;
 
 namespace RobotApp.Models
 {
@@ -36,12 +34,12 @@ namespace RobotApp.Models
             
             ExpectedPosition = new Position(journey.Last());
 
-            if (StartingPosition.IsOutOfBounds(grid))
+            if (grid.IsOutOfBounds(StartingPosition))
             {
                 throw new ArgumentOutOfRangeException(nameof(StartingPosition), $"Starting position is outside the boundaries of the grid. Please make sure {nameof(StartingPosition)} can be plotted inside a {grid.Width}x{grid.Height} grid");
             }
 
-            if (ExpectedPosition.IsOutOfBounds(grid))
+            if (grid.IsOutOfBounds(ExpectedPosition))
             {
                 throw new ArgumentOutOfRangeException(nameof(ExpectedPosition), $"Expected position is outside the boundaries of the grid. Please make sure {nameof(ExpectedPosition)} can be plotted inside a {grid.Width}x{grid.Height} grid");
             }
@@ -58,13 +56,12 @@ namespace RobotApp.Models
         {
             Position currentPosition = StartingPosition;
             bool isOutOfBoundsOrCrashed = false;
-            CommandService commandService = new();
 
             foreach (var command in Commands)
             {
-                currentPosition = commandService.ExecuteCommand(currentPosition, command);
+                currentPosition.ExecuteCommand(command);
 
-                if (currentPosition.IsOutOfBounds(grid))
+                if (grid.IsOutOfBounds(currentPosition))
                 {
                     FinishJourney("OUT OF BOUNDS");
                     isOutOfBoundsOrCrashed = true;

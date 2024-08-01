@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using RobotApp.Enums;
 
 namespace RobotApp.Models
@@ -41,5 +43,62 @@ namespace RobotApp.Models
         public int X { get; set; }
         public int Y { get; set; }
         public DirectionEnum Direction { get; set; }
+
+
+        public void ExecuteCommand(CommandEnum command)
+        {
+            if (command == CommandEnum.F)
+            {
+                MoveForward();
+                return;
+            }
+
+            Rotate(command);
+        }
+
+        public string HasCrashed(IEnumerable<Obstacle> obstacles)
+        {
+            var obstacle = obstacles.FirstOrDefault(o => o.X == X && o.Y == Y);
+            return obstacle != null ? $"CRASHED {obstacle.X} {obstacle.Y}" : string.Empty;
+        }
+
+        private void MoveForward()
+        {
+            switch (this.Direction)
+            {
+                case DirectionEnum.N:
+                    this.Y++;
+                    break;
+                case DirectionEnum.E:
+                    this.X++;
+                    break;
+                case DirectionEnum.S:
+                    this.Y--;
+                    break;
+                case DirectionEnum.W:
+                    this.X--;
+                    break;
+            }
+        }
+
+        private void Rotate(CommandEnum command)
+        {
+            var direction = this.Direction + (int)command;
+
+            if (Enum.IsDefined(typeof(DirectionEnum), direction))
+            {
+                this.Direction = direction;
+            }
+
+            if ((int)direction == -1)
+            {
+                this.Direction = Enum.GetValues(typeof(DirectionEnum)).Cast<DirectionEnum>().Max();
+            }
+
+            if ((int)direction == 4)
+            {
+                this.Direction = Enum.GetValues(typeof(DirectionEnum)).Cast<DirectionEnum>().Min();
+            }
+        }
     }
 }

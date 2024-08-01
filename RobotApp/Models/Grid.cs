@@ -44,5 +44,11 @@ namespace RobotApp.Models
 
         public int Width { get; set; }
         public int Height { get; set; }
+
+
+        public bool IsOutOfBounds(Position position)
+        {
+            return position.X < 0 || position.Y < 0 || Height - 1 < position.Y || Width - 1 < position.X;
+        }
     }
 }
